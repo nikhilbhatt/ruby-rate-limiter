@@ -1,14 +1,23 @@
-# app.rb
-require 'sinatra'
+# frozen_string_literal: true
 
-get '/' do
-  'Basic Sinatra application will be used for various rate limiting algorithms'
-end
+require 'sinatra/base'
+require_relative './rate_limiter/token_bucket'
 
-get '/unlimited' do
-  "Unlimited! Let's Go!"
-end
+# Start
+class App < Sinatra::Base
+  before do
+    halt 429, 'Too Many Request! Try Again later' unless RateLimiter::TokenBucket.valid_request?(request.ip)
+  end
 
-get '/limited' do
-  "Limited, don't over use me!"
+  get '/' do
+    'Basic Sinatra application will be used for various rate limiting algorithms'
+  end
+
+  get '/unlimited' do
+    "Unlimited! Let's Go!"
+  end
+
+  get '/limited' do
+    "Limited, don't over use me! #{@size}"
+  end
 end
