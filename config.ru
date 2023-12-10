@@ -1,5 +1,4 @@
 # frozen_string_literal: true
 
-require_relative './app'
-
-run App.run!
+require "./config/environment"
+run Rack::URLMap.new("/" => App)
