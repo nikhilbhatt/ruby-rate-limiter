@@ -1,0 +1,29 @@
+# .github/workflows/rspec.yml
+
+name: RSpec CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: actions/setup-ruby@v2
+      with:
+        ruby-version: 3.1
+
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        bundle install
+
+    - name: Run RSpec tests
+      run: bundle exec rspec

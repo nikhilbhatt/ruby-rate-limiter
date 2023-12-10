@@ -1,11 +1,6 @@
 # frozen_string_literal: true
-
-require 'sinatra/base'
-require_relative './rate_limiter/token_bucket'
-
-# Start
 class App < Sinatra::Base
-  before do
+  before '/limited' do
     halt 429, 'Too Many Request! Try Again later' unless RateLimiter::TokenBucket.valid_request?(request.ip)
   end
 
@@ -18,6 +13,6 @@ class App < Sinatra::Base
   end
 
   get '/limited' do
-    "Limited, don't over use me! #{@size}"
+    'Limited, dont over use me!'
   end
 end
