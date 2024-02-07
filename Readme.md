@@ -6,3 +6,7 @@
 
 #### Running Test
 `bundle exec rspec`
+
+#### Algorithms
+1. Token Bucket
+2. Fixed Window Counter
