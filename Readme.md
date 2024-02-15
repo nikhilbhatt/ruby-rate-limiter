@@ -10,3 +10,4 @@
 #### Algorithms
 1. Token Bucket
 2. Fixed Window Counter
+3. Sliding Window Log

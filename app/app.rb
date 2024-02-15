@@ -3,11 +3,21 @@
 # app
 class App < Sinatra::Base
   before '/limited_token_bucket' do
-    halt 429, 'Too Many Request! Try Again later - Token Bucket' unless RateLimiter::TokenBucket.valid_request?(request.ip)
+    unless RateLimiter::TokenBucket.valid_request?(request.ip)
+      halt 429, 'Too Many Request! Try Again later - Token Bucket'
+    end
   end
 
   before '/limited_window_counter' do
-    halt 429, 'Too Many Request! Try Again later - Fixed Window Counter' unless RateLimiter::FixedWindowCounter.valid_request?
+    unless RateLimiter::FixedWindowCounter.valid_request?
+      halt 429, 'Too Many Request! Try Again later - Fixed Window Counter'
+    end
+  end
+
+  before '/limited_sliding_window' do
+    unless RateLimiter::SlidingWindowLog.valid_request?(request.ip)
+      halt 429, 'Too Many Request! Try Again later - Sliding Window Log'
+    end
   end
 
   get '/' do
@@ -24,5 +34,9 @@ class App < Sinatra::Base
 
   get '/limited_window_counter' do
     'Limited, End Point for fixed window counter algorithm'
+  end
+
+  get '/limited_sliding_window' do
+    'Limited, End Point for sliding window log algorithm'
   end
 end
