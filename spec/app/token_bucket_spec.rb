@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Token Bucket Algorithm' do
+describe 'TokenBucket' do
   include Rack::Test::Methods
 
   def app
@@ -27,7 +27,7 @@ describe 'Token Bucket Algorithm' do
     end
   end
 
-  context 'When actual request is sent' do
+  context 'when actual request is sent' do
     it 'Returns 429 if number of requests are greater than 10 within a minute' do
       20.times do |request_counter|
         get '/limited_token_bucket'

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Fixed Window Counter Algorithm' do
+describe 'FixedWindowCounter' do
   include Rack::Test::Methods
 
   def app
@@ -27,7 +27,7 @@ describe 'Fixed Window Counter Algorithm' do
     end
   end
 
-  context 'When actual request is sent' do
+  context 'when actual request is sent' do
     it 'Returns 429 if number of requests are greater than 60 within a minute' do
       70.times do |request_counter|
         get '/limited_window_counter'

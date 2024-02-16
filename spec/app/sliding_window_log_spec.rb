@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Sliding Window Log Algorithm' do
+describe 'SlidingWindowLog' do
   include Rack::Test::Methods
 
   def app
@@ -27,7 +27,7 @@ describe 'Sliding Window Log Algorithm' do
     end
   end
 
-  context 'When actual request is sent' do
+  context 'when actual request is sent' do
     it 'Returns 429 if number of requests are greater than 10 within a minute' do
       20.times do |request_counter|
         get '/limited_sliding_window'
