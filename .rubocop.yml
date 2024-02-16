@@ -1,0 +1,10 @@
+require: rubocop-rspec
+
+AllCops:
+  NewCops: enable
+Metrics/BlockLength:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Max: 4
+RSpec/ExampleLength:
+  Max: 15
